@@ -9,10 +9,10 @@ import org.springframework.data.repository.query.Param;
 
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
 
-    @Query(value = "SELECT a.id, a.activities_info_id FROM activities a " +
+    @Query(value = "SELECT a.id, a.activities_info_id, a.activity_type FROM activities a " +
             "LEFT JOIN activities_info ai ON a.activities_info_id = ai.id " +
-            "WHERE ai.activity_type = :activityType",
-            countQuery = "SELECT count(*) FROM activities_info WHERE activity_type = :activityType",
+            "WHERE a.activity_type = :activityType",
+            countQuery = "SELECT count(*) FROM activities WHERE activity_type = :activityType",
             nativeQuery = true)
     Page<Activity> findAllByActivityType(@Param("activityType") String activityType, Pageable pageable);
 }

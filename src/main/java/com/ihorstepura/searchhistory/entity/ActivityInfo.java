@@ -18,11 +18,6 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 public class ActivityInfo extends BaseEntity {
 
-    @NotNull
-    @Column(name = "activity_type")
-    @JsonProperty(value = "activityType")
-    private ActivityType activityType;
-
     @NotBlank
     @Column(name = "endpoint")
     @JsonProperty(value = "endpoint")
