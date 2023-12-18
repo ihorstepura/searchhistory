@@ -23,4 +23,3 @@ public class Activity extends BaseEntity {
     @JoinColumn(name = "activities_info_id", referencedColumnName = "id")
     private ActivityInfo activityInfo;
 }
-
