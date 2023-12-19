@@ -17,11 +17,11 @@ public class ActivityService {
         return activityRepository.save(activity);
     }
 
-    public Page<Activity> getUserActivities(Pageable pageable) {
-        return activityRepository.findAll(pageable);
+    public Page<Activity> getUserActivities(String userLogin, Pageable pageable) {
+        return activityRepository.findByUser(userLogin, pageable);
     }
 
-    public Page<Activity> getUserActivitiesByType(String activityType, Pageable pageable) {
-        return activityRepository.findAllByActivityType(activityType, pageable);
+    public Page<Activity> getUserActivitiesByType(String userLogin, String activityType, Pageable pageable) {
+        return activityRepository.findAllByActivityType(userLogin, activityType, pageable);
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
@@ -54,16 +55,19 @@ public class ActivityController {
                                                                     name = "activityType",
                                                                     description = "Type of activity", example = "login")
                                                             String activityType,
+                                                            Authentication authentication,
                                                             @RequestParam(defaultValue = "0") int page,
                                                             @RequestParam(defaultValue = "3") int size) {
         try {
             Pageable paging = PageRequest.of(page, size);
 
+            String userLogin = authentication.getName();
+
             Page<Activity> userActivities;
             if (activityType == null) {
-                userActivities = activityService.getUserActivities(paging);
+                userActivities = activityService.getUserActivities(userLogin, paging);
             } else {
-                userActivities = activityService.getUserActivitiesByType(activityType, paging);
+                userActivities = activityService.getUserActivitiesByType(userLogin, activityType, paging);
             }
 
             LOGGER.info("Get activity at {}", LocalTime.now());
