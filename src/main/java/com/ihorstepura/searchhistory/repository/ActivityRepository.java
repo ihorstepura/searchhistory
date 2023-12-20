@@ -19,9 +19,10 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     @Query(value = "SELECT a.id, a.activities_info_id, a.activity_type FROM activities a " +
             "LEFT JOIN activities_info ai ON a.activities_info_id = ai.id " +
             "WHERE a.activity_type = :activityType AND user_login = :userLogin",
-            countQuery = "SELECT count(*) FROM activities " +
+            countQuery = "SELECT count(*), a.activities_info_id FROM activities a " +
                     "LEFT JOIN activities_info ai ON a.activities_info_id = ai.id " +
-                    "WHERE activity_type = :activityType AND user_login = :userLogin",
+                    "WHERE activity_type = :activityType AND user_login = :userLogin " +
+                    "GROUP BY a.activities_info_id",
             nativeQuery = true)
     Page<Activity> findAllByActivityType(@Param("userLogin") String userLogin,
                                          @Param("activityType") String activityType, Pageable pageable);
