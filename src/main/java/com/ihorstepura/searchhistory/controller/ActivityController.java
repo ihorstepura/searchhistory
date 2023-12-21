@@ -53,7 +53,7 @@ public class ActivityController {
     public ResponseEntity<Page<Activity>> getUserActivities(@RequestParam(required = false)
                                                             @Parameter(
                                                                     name = "activityType",
-                                                                    description = "Type of activity", example = "login")
+                                                                    description = "Type of activity", example = "LOGIN")
                                                             String activityType,
                                                             Authentication authentication,
                                                             @RequestParam(defaultValue = "0") int page,
